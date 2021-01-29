@@ -14,6 +14,7 @@
 		7AB3032625C40DC600CF67AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB3032525C40DC600CF67AE /* Assets.xcassets */; };
 		7AB3032925C40DC600CF67AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AB3032725C40DC600CF67AE /* LaunchScreen.storyboard */; };
 		7AB3032C25C40DC600CF67AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB3032B25C40DC600CF67AE /* main.m */; };
+		7AB3033525C40DD900CF67AE /* YMTapTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB3033325C40DD900CF67AE /* YMTapTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		7AB3032825C40DC600CF67AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AB3032A25C40DC600CF67AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AB3032B25C40DC600CF67AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7AB3033325C40DD900CF67AE /* YMTapTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTapTextView.m; sourceTree = "<group>"; };
+		7AB3033425C40DD900CF67AE /* YMTapTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMTapTextView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,8 @@
 		7AB3031825C40DC500CF67AE /* YMTapTextView */ = {
 			isa = PBXGroup;
 			children = (
+				7AB3033425C40DD900CF67AE /* YMTapTextView.h */,
+				7AB3033325C40DD900CF67AE /* YMTapTextView.m */,
 				7AB3031925C40DC500CF67AE /* AppDelegate.h */,
 				7AB3031A25C40DC500CF67AE /* AppDelegate.m */,
 				7AB3031C25C40DC500CF67AE /* SceneDelegate.h */,
@@ -149,6 +154,7 @@
 				7AB3031B25C40DC500CF67AE /* AppDelegate.m in Sources */,
 				7AB3032C25C40DC600CF67AE /* main.m in Sources */,
 				7AB3031E25C40DC500CF67AE /* SceneDelegate.m in Sources */,
+				7AB3033525C40DD900CF67AE /* YMTapTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
