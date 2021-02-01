@@ -36,11 +36,30 @@ static NSString * const kActionKey = @"kActionKey";
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self p_removeTapActionWithRange:range];
         [self.rangesArray addObject:@{
             kRangeKey  : [NSValue valueWithRange:range],
             kActionKey : block,
         }];
     });
+}
+
+- (void)removeTapActionWithRange:(NSRange)range
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self p_removeTapActionWithRange:range];
+    });
+}
+
+- (void)p_removeTapActionWithRange:(NSRange)range
+{
+    for (NSInteger i = self.rangesArray.count - 1; i >= 0; i--) {
+        NSDictionary *dic = [self.rangesArray objectAtIndex:i];
+        NSRange tmpRange = [((NSValue *)[dic objectForKey:kRangeKey]) rangeValue];
+        if (tmpRange.location == range.location && tmpRange.length == range.length) {
+            [self.rangesArray removeObjectAtIndex:i];
+        }
+    }
 }
 
 - (void)removeAllTapAction

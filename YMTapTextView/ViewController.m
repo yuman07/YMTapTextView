@@ -33,7 +33,6 @@
     textView.attributedText = string;
     
     [textView sizeToFit];
-    
     [self.view addSubview:textView];
     
     [textView addTapActionWithRange:NSMakeRange(11, 7) block:^{
@@ -43,7 +42,6 @@
     [textView addTapActionWithRange:NSMakeRange(19, 16) block:^{
         NSLog(@"点击了《个人信息采集及征信查询授权书》");
     }];
-    
 }
 
 
