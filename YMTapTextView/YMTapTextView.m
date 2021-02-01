@@ -7,9 +7,6 @@
 
 #import "YMTapTextView.h"
 
-static NSString * const kRangeKey  = @"kRangeKey";
-static NSString * const kActionKey = @"kActionKey";
-
 @interface YMTapTextView ()
 
 @property (nonatomic, strong) NSMutableArray *rangesArray;
@@ -37,10 +34,7 @@ static NSString * const kActionKey = @"kActionKey";
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self p_removeTapActionWithRange:range];
-        [self.rangesArray addObject:@{
-            kRangeKey  : [NSValue valueWithRange:range],
-            kActionKey : block,
-        }];
+        [self.rangesArray addObject:@[[NSValue valueWithRange:range], block]];
     });
 }
 
@@ -54,8 +48,8 @@ static NSString * const kActionKey = @"kActionKey";
 - (void)p_removeTapActionWithRange:(NSRange)range
 {
     for (NSInteger i = self.rangesArray.count - 1; i >= 0; i--) {
-        NSDictionary *dic = [self.rangesArray objectAtIndex:i];
-        NSRange tmpRange = [(NSValue *)[dic objectForKey:kRangeKey] rangeValue];
+        NSArray *array = self.rangesArray[i];
+        NSRange tmpRange = [array.firstObject rangeValue];
         if (NSEqualRanges(tmpRange, range)) {
             [self.rangesArray removeObjectAtIndex:i];
         }
@@ -73,9 +67,9 @@ static NSString * const kActionKey = @"kActionKey";
 {
     CGPoint point = [[touches anyObject] locationInView:self];
     
-    for (NSDictionary *dic in self.rangesArray) {
-        NSRange range = [(NSValue *)[dic objectForKey:kRangeKey] rangeValue];
-        dispatch_block_t block = [dic objectForKey:kActionKey];
+    for (NSArray *array in self.rangesArray) {
+        NSRange range = [array.firstObject rangeValue];
+        dispatch_block_t block = array.lastObject;
         
         if (range.location >= self.text.length) {
             continue;
@@ -83,10 +77,10 @@ static NSString * const kActionKey = @"kActionKey";
         
         NSRange tmp = self.selectedRange;
         self.selectedRange = range;
-        NSArray *array = [self selectionRectsForRange:self.selectedTextRange];
+        NSArray *rects = [self selectionRectsForRange:self.selectedTextRange];
         self.selectedRange = tmp;
         
-        for (UITextSelectionRect *rect in array) {
+        for (UITextSelectionRect *rect in rects) {
             if (CGRectContainsPoint(rect.rect, point)) {
                 block();
                 return;
