@@ -7,7 +7,7 @@
 
 #import "YMTapTextView.h"
 
-static NSString * const kRangeKey = @"kRangeKey";
+static NSString * const kRangeKey  = @"kRangeKey";
 static NSString * const kActionKey = @"kActionKey";
 
 @interface YMTapTextView ()
@@ -24,7 +24,7 @@ static NSString * const kActionKey = @"kActionKey";
     if (self) {
         self.editable = NO;
         self.selectable = NO;
-        _rangesArray = [NSMutableArray array];
+        _rangesArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -55,8 +55,8 @@ static NSString * const kActionKey = @"kActionKey";
 {
     for (NSInteger i = self.rangesArray.count - 1; i >= 0; i--) {
         NSDictionary *dic = [self.rangesArray objectAtIndex:i];
-        NSRange tmpRange = [((NSValue *)[dic objectForKey:kRangeKey]) rangeValue];
-        if (tmpRange.location == range.location && tmpRange.length == range.length) {
+        NSRange tmpRange = [(NSValue *)[dic objectForKey:kRangeKey] rangeValue];
+        if (NSEqualRanges(tmpRange, range)) {
             [self.rangesArray removeObjectAtIndex:i];
         }
     }
@@ -74,10 +74,10 @@ static NSString * const kActionKey = @"kActionKey";
     CGPoint point = [[touches anyObject] locationInView:self];
     
     for (NSDictionary *dic in self.rangesArray) {
-        NSRange range = [((NSValue *)[dic objectForKey:kRangeKey]) rangeValue];
+        NSRange range = [(NSValue *)[dic objectForKey:kRangeKey] rangeValue];
         dispatch_block_t block = [dic objectForKey:kActionKey];
         
-        if (self.text.length == 0 || range.location > self.text.length - 1) {
+        if (range.location >= self.text.length) {
             continue;
         }
         
